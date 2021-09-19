@@ -20,11 +20,7 @@ imgElement.onload = () => {
   canvas.width = width;
   canvas.height = height;
 
-  src = input.clone();
-  cv.resize(src, src, new cv.Size(width/scaling, height/scaling), 0, 0, cv.INTER_AREA);
-  cv.cvtColor(src, src, cv.COLOR_RGBA2RGB, 0);
-
-  update('shuffle-horizontal');
+  update('none');
 
   options_grid.style.visibility = 'visible';
   options_shuffle.style.visibility = 'visible';
@@ -36,13 +32,27 @@ inputElement.addEventListener('change', (e) => {
   imgElement.src = URL.createObjectURL(e.target.files[0]);
 }, false);
 
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
 function update(option) {
   scaling = document.getElementById("grid").value;
+  src = input.clone();
+  cv.resize(src, src, new cv.Size(width/scaling, height/scaling), 0, 0, cv.INTER_AREA);
+  cv.cvtColor(src, src, cv.COLOR_RGBA2RGB, 0);
+
+  let rows = [...Array(src.rows).keys()];
+  let cols = [...Array(src.cols).keys()];
 
   dst = input.clone()
-  for (let i = 0; i < src.rows; i++) {
-  for (let j = 0; j < src.cols; j++) {
-    let avg = src.ucharPtr(i, j);
+  let count_x = 0;
+  let count_y = 0;
+
+  let dst_draw = (i, j, count_x, count_y) => {
+    let avg = src.ucharPtr(count_x, count_y);
 
     for (let x = 0; x < scaling; x++) {
     for (let y = 0; y < scaling; y++) {
@@ -53,7 +63,42 @@ function update(option) {
     }
     }
   }
+
+  switch(option) {
+    case 'horizontal':
+      rows.forEach((i) => {
+        count_y = 0;
+        shuffle(cols);
+        cols.forEach((j) => {
+          dst_draw(i, j, count_x, count_y);
+          count_y++;
+        })
+        count_x++;
+      })
+      break;
+    case 'vertical':
+      cols.forEach((j) => {
+        count_x = 0;
+        shuffle(rows);
+        rows.forEach((i) => {
+          dst_draw(i, j, count_x, count_y);
+          count_x++;
+        })
+        count_y++;
+      })
+      break;
+    default:
+      rows.forEach((i) => {
+        count_y = 0;
+        cols.forEach((j) => {
+          dst_draw(i, j, count_x, count_y);
+          count_y++;
+        })
+        count_x++;
+      })
+      break;
   }
+
   cv.imshow('result', dst);
   dst.delete();
 }
