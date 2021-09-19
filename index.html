@@ -1,0 +1,61 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- for Google -->
+  <meta name="description" content="Just Colors" />
+  <meta name="keywords" content="opencv, image processing, graphics, design, computer vision, art, color, colors" />
+  <meta name="author" content="Puripant Ruchikachorn" />
+
+  <!-- for Facebook -->
+  <meta property="og:title" content="Just Colors" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="http://puripant.ruchikachorn.com/just-colors/screenshot.png" />
+  <meta property="og:url" content="http://puripant.ruchikachorn.com/just-colors/" />
+  <meta property="og:description" content="A reproduction/replication of a previous project to pixelate and shuffle the result" />
+
+  <!-- for Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Just Colors" />
+  <meta name="twitter:description" content="A reproduction/replication of a previous project to pixelate and shuffle the result" />
+  <meta name="twitter:image" content="http://puripant.ruchikachorn.com/just-colors/screenshot.png" />
+
+  <title>Just Colors</title>
+  <link href="main.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Chonburi" rel="stylesheet">
+</head>
+
+<body>
+  <div class="header">Just Colors</div>
+  
+  <div class="buttons center">
+    Upload a photo: 
+    <input type="file" id="file" name="file" disabled />
+  </div>
+  <img id="image" />
+
+  <div class="buttons center" id="options-shuffle">
+    Shuffle: 
+    <div class="button noselect" onclick="update('shuffle-horizontal')">Horizontal</div>
+    <div class="button noselect" onclick="update('shuffle-vertical')">Vertical</div>
+    <div class="button noselect" onclick="update('shuffle-all')">All</div>
+  </div>
+  <div class="buttons center" id="options-save">
+    <div class="button noselect" onclick="save()">Save as Image</div>
+  </div>
+  <div class="output">
+    <canvas id="result"></canvas>
+  </div>
+
+  <!-- <div class="buttons center">
+    Code at <a href="https://github.com/puripant/figur-over-text">GitHub</a>
+    <br>
+		Created by
+    <div class="logo boonmeelab"><a href="https://www.boonmeelab.com"><span></span></a></div>
+  </div> -->
+
+  <script async src="opencv.js" onload="onOpenCvReady();" type="text/javascript"></script>
+  <script src="main.js"></script>
+</body>
+</html>
