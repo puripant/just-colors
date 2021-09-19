@@ -18,7 +18,11 @@ body {
   color: rgb(235, 48, 124);
 }
 
-img, canvas {
+img {
+  display: none;
+}
+
+canvas {
   width: 100%;
   max-width: 500px;
 }
@@ -36,7 +40,7 @@ img, canvas {
 input#file {
   width: 200px;
 } 
-#options-shuffle, #options-save {
+#options-grid, #options-shuffle, #options-save {
   visibility: hidden;
 }
 

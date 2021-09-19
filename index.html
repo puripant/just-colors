@@ -35,6 +35,10 @@
   </div>
   <img id="image" />
 
+  <div class="buttons center" id="options-grid">
+    Grid-size: 
+    <input id="grid" type="number" value="50" />
+  </div>
   <div class="buttons center" id="options-shuffle">
     Shuffle: 
     <div class="button noselect" onclick="update('shuffle-horizontal')">Horizontal</div>
@@ -42,7 +46,7 @@
     <div class="button noselect" onclick="update('shuffle-all')">All</div>
   </div>
   <div class="buttons center" id="options-save">
-    <div class="button noselect" onclick="save()">Save as Image</div>
+    <a href="" download="result.png" onclick="download_canvas(this)">Save as PNG</a>
   </div>
   <div class="output">
     <canvas id="result"></canvas>
